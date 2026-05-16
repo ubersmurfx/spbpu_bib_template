@@ -40,7 +40,7 @@
   <!-- АВТОРЫ ДЛЯ НАЧАЛА ЗАПИСИ (один автор с запятой) -->
   <macro name="author-first">
     <names variable="author">
-      <name form="long" name-as-sort-order="first" et-al-min="2" et-al-use-first="1">
+      <name form="long" name-as-sort-order="first">
         <name-part name="family" font-weight="normal" suffix=", "/>
         <name-part name="given" font-weight="normal"/>
       </name>
@@ -198,8 +198,7 @@
   <!-- БИБЛИОГРАФИЯ -->
   <bibliography>
     <sort>
-      <key macro="author-first"/>
-      <key variable="issued"/>
+        <key variable="citation-number"/>
     </sort>
     <layout suffix="">
       <text macro="bibliography"/>
