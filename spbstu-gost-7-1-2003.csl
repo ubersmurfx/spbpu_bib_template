@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0">
+  <info>
+    <title>СПбПУ ГОСТ 7.1-2003 (numeric, alphabetic)</title>
+    <title-short>СПбПУ</title-short>
+    <id>http://www.zotero.org/styles/spbstu-gost-7-1-2003</id>
+    <category citation-format="numeric"/>
+    <category field="generic-base"/>
+    <summary>Стиль по методичке СПбПУ ВШАиР (Приложение Г). ГОСТ 7.1-2003</summary>
+    <updated>2024-01-01T00:00:00+00:00</updated>
+  </info>
+
+  <locale xml:lang="ru">
+    <terms>
+      <term name="et-al"> [и др.]</term>
+      <term name="page" form="short">С.</term>
+      <term name="number-of-pages" form="short">с.</term>
+      <term name="number-of-volumes" form="short">т.</term>
+      <term name="collection-editor" form="short">сост.</term>
+      <term name="translator" form="short">пер.</term>
+      <term name="editortranslator" form="short">
+        <single>ред. и пер.</single>
+        <multiple>ред. и пер.</multiple>
+      </term>
+      <term name="month-01" form="short">янв.</term>
+      <term name="month-02" form="short">февр.</term>
+      <term name="month-03" form="short">марта</term>
+      <term name="month-04" form="short">апр.</term>
+      <term name="month-05" form="short">мая</term>
+      <term name="month-06" form="short">июня</term>
+      <term name="month-07" form="short">июля</term>
+      <term name="month-08" form="short">авг.</term>
+      <term name="month-09" form="short">сент.</term>
+      <term name="month-10" form="short">окт.</term>
+      <term name="month-11" form="short">нояб.</term>
+      <term name="month-12" form="short">дек.</term>
+    </terms>
+  </locale>
+
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always"/>
+      <substitute>
+        <text variable="title"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <macro name="author-long">
+    <names variable="author">
+      <name form="long" name-as-sort-order="first" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+        <name-part name="family" font-weight="normal" text-case="capitalize-first"/>
+        <name-part name="given" font-weight="normal"/>
+      </name>
+      <et-al term="et-al"/>
+    </names>
+  </macro>
+
+  <macro name="author-title">
+    <choose>
+      <if variable="author">
+        <names variable="author">
+          <name form="long" name-as-sort-order="first" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+            <name-part name="family" font-weight="normal" suffix=", "/>
+            <name-part name="given" font-weight="normal"/>
+          </name>
+          <et-al term="et-al"/>
+        </names>
+        <text variable="title" prefix=" " suffix=" "/>
+      </if>
+      <else>
+        <text variable="title" suffix=" "/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="year-date">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <macro name="publisher">
+    <group delimiter=", " prefix=" – ">
+      <text variable="publisher-place"/>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+
+  <macro name="volume-issue">
+    <choose>
+      <if variable="volume">
+        <label variable="volume" form="short" text-case="capitalize-first" suffix=". "/>
+        <text variable="volume"/>
+      </if>
+    </choose>
+    <choose>
+      <if variable="issue">
+        <text variable="issue" prefix=". № "/>
+      </if>
+    </choose>
+  </macro>
+
+  <macro name="page-range">
+    <label variable="page" form="short" prefix=" – " suffix=" "/>
+    <text variable="page"/>
+  </macro>
+
+  <!-- BIBLIOGRAPHY MACRO -->
+  <macro name="bibliography">
+    <text variable="citation-number" suffix=" "/>
+
+    <choose>
+      <!-- Статья из журнала -->
+      <else-if type="article article-magazine article-journal" match="any">
+        <group delimiter="">
+          <text macro="author-title"/>
+          <text macro="author-long" prefix="/ " suffix=" // "/>
+          <text variable="container-title" suffix=". "/>
+          <text macro="year-date" suffix=". "/>
+          <text macro="volume-issue"/>
+          <text macro="page-range" suffix="."/>
+        </group>
+      </else-if>
+
+      <!-- Книга -->
+      <else-if type="book">
+        <group delimiter="">
+          <group delimiter=" / ">
+            <group delimiter=". ">
+              <text macro="author-title"/>
+              <text macro="volume-issue"/>
+            </group>
+            <text macro="author-long"/>
+          </group>
+          <text macro="publisher" suffix=". "/>
+          <text macro="year-date" suffix=". – "/>
+          <text variable="number-of-pages" suffix=" "/>
+          <label variable="number-of-pages" form="short" suffix="."/>
+        </group>
+      </else-if>
+
+      <!-- Глава из книги / сборника -->
+      <else-if type="chapter paper-conference" match="any">
+        <group delimiter="">
+          <text macro="author-title"/>
+          <text macro="author-long" prefix="/ " suffix=" // "/>
+          <text variable="container-title" suffix=". "/>
+          <text macro="publisher" suffix=". "/>
+          <text macro="year-date" suffix=". "/>
+          <text macro="page-range" suffix="."/>
+        </group>
+      </else-if>
+
+      <!-- Диссертация / автореферат -->
+      <else-if type="thesis" match="any">
+        <group delimiter="">
+          <text macro="author-title"/>
+          <text variable="genre" prefix=": " suffix=". "/>
+          <text macro="author-long" prefix="/ " suffix=". "/>
+          <text macro="publisher" suffix=", "/>
+          <text macro="year-date" suffix=". – "/>
+          <text variable="number-of-pages" suffix=" "/>
+          <label variable="number-of-pages" form="short" suffix="."/>
+        </group>
+      </else-if>
+
+      <!-- Электронные ресурсы -->
+      <else-if type="webpage">
+        <group delimiter=" ">
+          <text variable="title" suffix=". "/>
+          <text variable="URL" prefix="URL: "/>
+          <date variable="accessed" prefix="(дата обращения: " suffix=")">
+            <date-part name="day" form="numeric-leading-zeros"/>
+            <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+            <date-part name="year"/>
+          </date>
+        </group>
+      </else-if>
+
+      <!-- Всё остальное -->
+      <else>
+        <group delimiter=" / ">
+          <text macro="author-title"/>
+          <text macro="author-long"/>
+        </group>
+        <text macro="publisher" suffix=". "/>
+        <text macro="year-date" suffix=". – "/>
+        <text variable="number-of-pages" suffix=" "/>
+        <label variable="number-of-pages" form="short" suffix="."/>
+      </else>
+    </choose>
+  </macro>
+
+  <citation et-al-min="4" et-al-use-first="1" collapse="citation-number">
+    <layout delimiter="; " prefix="[" suffix="]">
+      <text variable="citation-number"/>
+      <choose>
+        <if variable="locator">
+          <label variable="locator" form="short" prefix=", "/>
+          <text variable="locator"/>
+        </if>
+      </choose>
+    </layout>
+  </citation>
+
+  <bibliography et-al-min="4" et-al-use-first="1">
+    <sort>
+      <key macro="author-title"/>
+      <key variable="issued"/>
+    </sort>
+    <layout suffix=".">
+      <text macro="bibliography"/>
+    </layout>
+  </bibliography>
+</style>
